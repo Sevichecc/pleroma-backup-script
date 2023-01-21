@@ -3,6 +3,9 @@ source /etc/profile
 source ./.env
 
 echo `date +"%Y-%m-%d %H:%M:%S"` " now starting backup"
+echo 'stop pleroma'
+sudo systemctl stop pleroma 
+
 echo "————————————backup to local directory——————————"
 echo "1.dump database"
 sudo -Hu postgres pg_dump -d $PLEROMA_DB --format=custom -f ${BACKUP_PATH}/pleroma.pgdump
@@ -27,6 +30,8 @@ echo "4.backup to remote"
     expect eof
 EOF
 
+echo "restart pleroma"
+sudo systemctl start pleroma 
 echo `date +"%Y-%m-%d %H:%M:%S"` " done!"
 
 # 5. (optional)Keep a revision every 7 days for revisions older than 30 days 
