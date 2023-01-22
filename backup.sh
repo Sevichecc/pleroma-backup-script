@@ -27,6 +27,13 @@ echo "4.backup to remote"
         "Secret" { send "$SECRET_ACCESS_KEY\n"; exp_continue }
         "password" { send "$PASSWORD\n" }
     }
+# 5. (optional)Keep a revision every 7 days for revisions older than 30 days 
+#   spawn duplicacy prune -keep 7:30
+#   expect {
+#         "ID" { send "$ACCESS_KEY_ID\n"; exp_continue }
+#         "Secret" { send "$SECRET_ACCESS_KEY\n"; exp_continue }
+#         "password" { send "$PASSWORD\n" }
+#     }
     expect eof
 EOF
 
@@ -34,21 +41,4 @@ echo "restart pleroma"
 sudo systemctl start pleroma 
 echo `date +"%Y-%m-%d %H:%M:%S"` " done!"
 
-# 5. (optional)Keep a revision every 7 days for revisions older than 30 days 
-# echo "5.prune snapshot"
-# /usr/bin/expect <<EOF
-#     set time 30
-#     spawn duplicacy backup -threads 4
-#     expect {
-#         "ID" { send "$ACCESS_KEY_ID\n"; exp_continue }
-#         "Secret" { send "$SECRET_ACCESS_KEY\n"; exp_continue }
-#         "password" { send "$PASSWORD\n" }
-#     }
-#     spawn duplicacy prune -keep 7:30
-#     expect {
-#         "ID" { send "$ACCESS_KEY_ID\n"; exp_continue }
-#         "Secret" { send "$SECRET_ACCESS_KEY\n"; exp_continue }
-#         "password" { send "$PASSWORD\n" }
-#     }
-#     expect eof
-# EOF
+
