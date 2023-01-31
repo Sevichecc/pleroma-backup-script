@@ -19,23 +19,7 @@ cp ${PLEROMA_CONFIG_PATH} ${BACKUP_PATH}
 
 echo "————————————upload to remote——————————"
 echo "4.backup to remote"
-/usr/bin/expect <<EOF
-    set time 30
-    spawn duplicacy backup -threads 4
-    expect {
-        "ID" { send "$ACCESS_KEY_ID\n"; exp_continue }
-        "Secret" { send "$SECRET_ACCESS_KEY\n"; exp_continue }
-        "password" { send "$PASSWORD\n" }
-    }
-# 5. (optional)Keep a revision every 7 days for revisions older than 30 days 
-#   spawn duplicacy prune -keep 7:30
-#   expect {
-#         "ID" { send "$ACCESS_KEY_ID\n"; exp_continue }
-#         "Secret" { send "$SECRET_ACCESS_KEY\n"; exp_continue }
-#         "password" { send "$PASSWORD\n" }
-#     }
-    expect eof
-EOF
+./duplicacy.sh
 
 echo "restart pleroma"
 sudo systemctl start pleroma 
