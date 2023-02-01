@@ -29,5 +29,3 @@ send "$PASSWORD\r"
 # send "$PASSWORD\r"
 
 expect eof
-
-EOF
