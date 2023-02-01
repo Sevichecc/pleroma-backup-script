@@ -10,7 +10,7 @@ echo "————————————backup to local directory————�
 echo "1.dump database"
 sudo -Hu postgres pg_dump -d $PLEROMA_DB --format=custom -f ${BACKUP_PATH}/pleroma.pgdump
 
-echo "2.pack upload & static folder"
+echo "2.pack uploads & static folder"
 tar -czf static.tar.gz  --absolute-names ${PLEROMA_PATH}/static 
 tar -czf uploads.tar.gz --absolute-names ${PLEROMA_PATH}/uploads}
 
@@ -21,8 +21,6 @@ echo "————————————upload to remote———————�
 echo "4.backup to remote"
 ./duplicacy.sh
 
-echo "restart pleroma"
+echo "5.restart pleroma"
 sudo systemctl start pleroma 
 echo `date +"%Y-%m-%d %H:%M:%S"` " done!"
-
-
