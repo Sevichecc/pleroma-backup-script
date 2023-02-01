@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import random
 from mastodon import Mastodon
 
 Mastodon.create_app(
