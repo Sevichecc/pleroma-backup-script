@@ -12,7 +12,7 @@ sudo -Hu postgres pg_dump -d $PLEROMA_DB --format=custom -f ${BACKUP_PATH}/plero
 
 echo "3.pack uploads & static folder"
 tar -czf static.tar.gz  --absolute-names ${PLEROMA_PATH}/static 
-tar -czf uploads.tar.gz --absolute-names ${PLEROMA_PATH}/uploads}
+tar -czf uploads.tar.gz --absolute-names ${PLEROMA_PATH}/uploads
 
 echo "4.copy config file"
 cp ${PLEROMA_CONFIG_PATH} ${BACKUP_PATH}
